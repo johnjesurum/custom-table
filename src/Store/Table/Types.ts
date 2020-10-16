@@ -11,14 +11,20 @@ interface infoType {
 
 export interface TableReducerType {
   list: Character[],
-  info: infoType | null;
-  pages: { [key: number]: Character[] };
+  pages: { [key: number]: Character[] } ;
   currentPage: number;
   totalPages: number;
+  selectedElement:Character[];
 }
 
 
 export interface serviceResponseType {
   info: infoType;
   results: Character[] | [];
+}
+
+export interface CurrentPageParams {
+  currentPage: number;
+  totalPages?: number;
+  items?: Character[]
 }
