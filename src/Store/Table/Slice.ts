@@ -10,6 +10,8 @@ const initialState: TableReducerType = {
   selectedElement: 0
 };
 
+
+
 const TableSlice = createSlice({
   name: "Table",
   initialState,
