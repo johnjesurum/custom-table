@@ -26,17 +26,21 @@ const ActionsTableComponent = () => {
   }, [changePage]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | undefined>(undefined)
 
   const toggleModal =() => setIsModalOpen(prevState => !prevState);
 
-  const selectedCharacter: Character | undefined = Object.values(pages).flat().find((c:Character) => c.selected);
+  const editSelectedElement =() => {
+    setSelectedCharacter(Object.values(pages).flat().find((c:Character) => c.selected));
+    toggleModal();
+  }
 
   return(
     <ButtonContainer>
 
       <div>
         <Button onClick={handleDelete} primary disabled={!selectedElement}>Delete</Button>
-        <Button  onClick={toggleModal} disabled={selectedElement !== 1}>Edit</Button>
+        <Button  onClick={editSelectedElement} disabled={selectedElement !== 1}>Edit</Button>
       </div>
 
       <div>

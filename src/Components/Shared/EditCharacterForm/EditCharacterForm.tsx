@@ -11,8 +11,6 @@ type Props = {
 
 const EditCharacterForm: React.FC<Props> = ({toggle, selectedCharacter}) => {
 
-  // const {selectedElement,pages} = useSelector((state: RootState) => state.tableReducer);
-
   const dispatch = useDispatch();
 
   const [characterForm, setCharacterForm] = useState<Character | any>(selectedCharacter);
