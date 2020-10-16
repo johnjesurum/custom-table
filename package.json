@@ -19,6 +19,7 @@
     "@types/reactstrap": "^8.2.0",
     "@types/redux": "^3.6.0",
     "@types/redux-saga": "^0.10.5",
+    "@types/styled-components": "^5.1.4",
     "axios": "^0.20.0",
     "bootstrap": "^4.4.1",
     "class-transformer": "^0.2.3",
