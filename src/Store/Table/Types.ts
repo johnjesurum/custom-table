@@ -9,12 +9,14 @@ interface infoType {
   prev:string | null;
 }
 
+export type Pages = { [key: number]: Character[] }
+
 export interface TableReducerType {
   list: Character[],
-  pages: { [key: number]: Character[] } ;
+  pages:  Pages;
   currentPage: number;
   totalPages: number;
-  selectedElement:Character[];
+  selectedElement:number;
 }
 
 

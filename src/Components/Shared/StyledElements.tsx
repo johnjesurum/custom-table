@@ -59,7 +59,7 @@ export const Table = styled.table`
  margin-bottom: 1rem;
  color: #212529;
  text-align: left;
-`
+`;
 
 export const Th = styled.th`
  padding: 0.75rem;

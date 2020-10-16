@@ -1,41 +1,37 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {EditButton, ErrorMessage, Form, FormGroup, Input, Label, TextRight} from "./EditCharacterForm.styles";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../Store/Reducers";
+import {useDispatch} from "react-redux";
 import {Character} from "../../../Models/Character";
-import {DEFAULT_CHARACTER} from "../../../Utils/Constants";
 import {TableActions} from "../../../Store/Table/Slice";
 
 type Props = {
-  toggle:()=>void;
+  toggle: () => void;
+  selectedCharacter: Character | undefined;
 }
 
-const EditCharacterForm : React.FC<Props> = ({toggle}) => {
+const EditCharacterForm: React.FC<Props> = ({toggle, selectedCharacter}) => {
 
-  const {selectedElement} = useSelector((state: RootState) => state.tableReducer);
+  // const {selectedElement,pages} = useSelector((state: RootState) => state.tableReducer);
 
   const dispatch = useDispatch();
 
-  const [characterForm, setCharacterForm] = useState<Character>(DEFAULT_CHARACTER);
+  const [characterForm, setCharacterForm] = useState<Character | any>(selectedCharacter);
 
-  const [errorMessage,setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+
 
   const handleSelect = (value: string, type: string) => {
     setErrorMessage(false);
-    setCharacterForm(prevState => ({...prevState, [type]: value}));
+    setCharacterForm((prevState:Character) => ({...prevState, [type]: value}));
   };
 
-  const handleSubmit = () =>{
-    if(!characterForm?.name) {
+  const handleSubmit = () => {
+    if (!characterForm?.name) {
       return setErrorMessage(true);
     }
     dispatch(TableActions.editCharacter(characterForm));
     toggle();
   };
-
-  useEffect(() => {
-    setCharacterForm(selectedElement[0]);
-  }, [selectedElement]);
 
   return (
     <div>

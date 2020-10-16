@@ -5,16 +5,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../Store/Reducers";
 import Modal from "../Shared/Modal/Modal";
 import EditCharacterForm from "../Shared/EditCharacterForm/EditCharacterForm";
+import {Character} from "../../Models/Character";
 
 const ActionsTableComponent = () => {
 
   const dispatch = useDispatch();
 
-  const {currentPage, totalPages, selectedElement} = useSelector((state: RootState) => state.tableReducer);
+  const {currentPage, totalPages, selectedElement,pages} = useSelector((state: RootState) => state.tableReducer);
 
   const changePage = useCallback((page: number) => {
     dispatch(TableActions.getList({currentPage: page}))
   }, [dispatch]);
+
+  const handleDelete = () => {
+    dispatch(TableActions.deleteSelectedCharacters());
+  };
 
   useEffect(() => {
     changePage(1);
@@ -24,13 +29,14 @@ const ActionsTableComponent = () => {
 
   const toggleModal =() => setIsModalOpen(prevState => !prevState);
 
+  const selectedCharacter: Character | undefined = Object.values(pages).flat().find((c:Character) => c.selected);
 
   return(
     <ButtonContainer>
 
       <div>
-        <Button primary disabled={!selectedElement.length}>Delete</Button>
-        <Button  onClick={toggleModal} disabled={selectedElement.length !== 1}>Edit</Button>
+        <Button onClick={handleDelete} primary disabled={!selectedElement}>Delete</Button>
+        <Button  onClick={toggleModal} disabled={selectedElement !== 1}>Edit</Button>
       </div>
 
       <div>
@@ -43,7 +49,7 @@ const ActionsTableComponent = () => {
         </NavigatorButton>
       </div>
 
-      {isModalOpen && <Modal children={<EditCharacterForm toggle={toggleModal} />} toggle={toggleModal}/>}
+      {isModalOpen && <Modal children={<EditCharacterForm selectedCharacter={selectedCharacter} toggle={toggleModal} />} toggle={toggleModal}/>}
 
     </ButtonContainer>
   );

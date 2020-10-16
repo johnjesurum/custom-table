@@ -1,5 +1,5 @@
-import React from "react";
-import {StyledDiv, Table, Th} from "../Shared/StyledElements";
+import React, {ChangeEvent} from "react";
+import {Checkbox, Table, Th} from "../Shared/StyledElements";
 import {Character} from "../../Models/Character";
 import TableRowComponent from "../TableRowComponent";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,11 +16,20 @@ const TableComponent = () => {
     dispatch(TableActions.handleChecked({checked, character}));
   };
 
+  const checkAll = (isChecked:boolean) => {
+    dispatch(TableActions.checkAll(isChecked));
+  };
+
+
   return(
     <Table>
       <thead>
       <tr>
-        <Th><StyledDiv/></Th>
+        <Th>
+          <Checkbox
+            onChange={(e:ChangeEvent<HTMLInputElement>)=>checkAll(e.target.checked)}
+            type="checkbox"/>
+        </Th>
         <Th>Name</Th>
         <Th>Status</Th>
         <Th>Species</Th>
